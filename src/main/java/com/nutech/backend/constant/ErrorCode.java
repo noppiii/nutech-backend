@@ -18,7 +18,9 @@ public enum ErrorCode {
     EMAIL_NOT_FOUND("Email user tidak ditemukan.", HttpStatus.NOT_FOUND),
     INVALID_CREDENTIALS("Email atau password tidak sesuai", HttpStatus.UNAUTHORIZED),
     EMPTY_REFRESH_TOKEN("RefreshToken diperlukan.", HttpStatus.BAD_REQUEST),
-    SNATCH_TOKEN("Refresh token tidak valid atau telah digunakan oleh pihak lain. Silakan login ulang untuk keamanan akun Anda.", HttpStatus.UNAUTHORIZED);
+    SNATCH_TOKEN("Refresh token tidak valid atau telah digunakan oleh pihak lain. Silakan login ulang untuk keamanan akun Anda.", HttpStatus.UNAUTHORIZED),
+    UNAUTHENTICATED("Unauthenticated.", HttpStatus.UNAUTHORIZED),
+    WALLET_ALREADY_EXISTS("Wallet already exists.", HttpStatus.CONFLICT),;
     private final String message;
     private final HttpStatus status;
 
