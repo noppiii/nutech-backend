@@ -23,7 +23,8 @@ public enum ErrorCode {
     WALLET_ALREADY_EXISTS("Wallet untuk user ini sudah ada. Anda hanya dapat memiliki satu wallet.", HttpStatus.CONFLICT),
     USER_NOT_FOUND("User tidak ditemukan dengan email tersebut. Pastikan email yang Anda masukkan benar.", HttpStatus.NOT_FOUND),
     WALLET_NOT_FOUND("Wallet tidak ditemukan untuk user ini. Pastikan wallet telah dibuat terlebih dahulu.", HttpStatus.NOT_FOUND),
-    INVALID_PAYMENT_METHOD("Payment method harus salah satu dari DANA, SHOPEEPAY, BNI, BRI, MANDIRI, E_WALLET, BANK_TRANSFER, CREDIT_CARD", HttpStatus.CONFLICT);
+    INVALID_PAYMENT_METHOD("Payment method harus salah satu dari DANA, SHOPEEPAY, BNI, BRI, MANDIRI, E_WALLET, BANK_TRANSFER, CREDIT_CARD", HttpStatus.CONFLICT),
+    PRODUCT_NOT_FOUND("Data product tidak ditemukan", HttpStatus.NOT_FOUND);
 
     private final String message;
     private final HttpStatus status;

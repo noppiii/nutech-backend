@@ -8,7 +8,7 @@ import lombok.Getter;
 public enum TransactionType {
 
     TOP_UP("Top Up"),
-    PAYMENT("Payment");
+    PURCHASE("Purchase");
 
     private final String name;
 
