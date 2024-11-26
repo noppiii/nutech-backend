@@ -1,6 +1,8 @@
 package com.nutech.backend.payload.response.wallet;
 
+import com.nutech.backend.entity.User;
 import com.nutech.backend.entity.Wallet;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 

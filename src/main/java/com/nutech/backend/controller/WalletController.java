@@ -1,7 +1,9 @@
 package com.nutech.backend.controller;
 
+import com.nutech.backend.payload.request.transaction.TopUpRequest;
 import com.nutech.backend.payload.request.wallet.CreateWalletRequest;
 import com.nutech.backend.payload.response.CustomSuccessResponse;
+import com.nutech.backend.payload.response.wallet.MyWalletResponse;
 import com.nutech.backend.payload.response.wallet.WalletResponse;
 import com.nutech.backend.service.wallet.WalletService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,12 +14,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "users", description = "Auth API")
+@Tag(name = "Wallet", description = "Wallet API")
 @RestController
 @RequestMapping("/api/v1/wallet")
 @RequiredArgsConstructor
@@ -35,6 +34,20 @@ public class WalletController {
     public ResponseEntity<CustomSuccessResponse<WalletResponse>> createWallet(@RequestBody @Valid CreateWalletRequest request) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         CustomSuccessResponse<WalletResponse> response = walletService.createWallet(request, email);
+        return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "My Wallet", description = "Lihat informasi dompet saya.",
+            parameters = {
+                    @Parameter(
+                            name = "accessToken",
+                            description = "Header untuk access token (format: Bearer <accessToken>)",
+                            required = true,
+                            in = ParameterIn.HEADER)})
+    @GetMapping
+    public ResponseEntity<CustomSuccessResponse<MyWalletResponse>> myWallet() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        CustomSuccessResponse<MyWalletResponse> response = walletService.myWallet(email);
         return ResponseEntity.ok(response);
     }
 }

@@ -27,9 +27,10 @@ public class Transaction extends BaseTimeEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "service_id")
-    private Service service;
+    @Column(nullable = false)
+    private String name;
+
+    private String description;
 
     @Column(nullable = false)
     private BigDecimal amount;
@@ -40,15 +41,16 @@ public class Transaction extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private TransactionStatus status;
+    private PaymentMethod paymentMethod;
 
     @Builder
-    public Transaction(User user, Service service, BigDecimal amount, TransactionType type, TransactionStatus status) {
+    public Transaction(User user, String name, String description, BigDecimal amount, TransactionType type, PaymentMethod paymentMethod) {
         this.user = user;
-        this.service = service;
+        this.name = name;
+        this.description = description;
         this.amount = amount;
         this.type = type;
-        this.status = status;
+        this.paymentMethod = paymentMethod;
     }
 }
 

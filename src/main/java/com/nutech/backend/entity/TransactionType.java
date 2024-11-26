@@ -6,8 +6,20 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum TransactionType {
+
     TOP_UP("Top Up"),
     PAYMENT("Payment");
 
-    private final String description;
+    private final String name;
+
+    public static TransactionType fromString(String transactionType) {
+        for (TransactionType type : TransactionType.values()) {
+            if (type.name.replace(" ", "").equalsIgnoreCase(transactionType.replace(" ", "").replace("_", ""))) {
+                return type;
+            }
+        }
+        throw new IllegalArgumentException("Jenis transaksi tidak dikenal: " + transactionType);
+    }
 }
+
+
