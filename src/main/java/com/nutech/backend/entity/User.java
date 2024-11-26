@@ -34,19 +34,16 @@ public class User extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private SocialCode socialCode;
 
-    private String socialAccessToken;
-
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
     @Builder
-    private User(String email, String password, String name, SocialCode socialCode, String socialAccessToken){
+    private User(String email, String password, String name, SocialCode socialCode){
         this.email = email;
         this.password = password;
         this.name = name;
         this.socialCode = socialCode;
-        this.socialAccessToken = socialAccessToken;
         this.role = UserRole.USER;
     }
 

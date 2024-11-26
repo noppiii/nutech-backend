@@ -13,7 +13,8 @@ public enum ErrorCode {
     INVALID_ACCESS_TOKEN("AccessToken tidak valid.", HttpStatus.UNAUTHORIZED),
     EXPIRED_PERIOD_REFRESH_TOKEN("RefreshToken telah kedaluwarsa.", HttpStatus.UNAUTHORIZED),
     INVALID_REFRESH_TOKEN("RefreshToken tidak valid.", HttpStatus.UNAUTHORIZED),
-    LOGOUTED_TOKEN("Token sudah diproses untuk logout.", HttpStatus.OK);
+    LOGOUTED_TOKEN("Token sudah diproses untuk logout.", HttpStatus.OK),
+    ALREADY_REGISTER("User sudah ada.", HttpStatus.CONFLICT);
 
     private final String message;
     private final HttpStatus status;

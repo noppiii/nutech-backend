@@ -29,6 +29,6 @@ public class UserSecurityServiceImpl implements UserSecurityService, UserDetails
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(user.getRole().name()));
 
-        return new AuthenticationUser(user, authorities);
+        return new  AuthenticationUser(user, authorities);
     }
 }
