@@ -30,7 +30,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         try {
 
-            String accessToken = JwtTokenUtils.extractBearerToken(request.getHeader("Authorization"));
+            String accessToken = JwtTokenUtils.extractBearerToken(request.getHeader("accessToken"));
 
 
             if (!request.getRequestURI().equals("/api/v1/auth/refresh") && accessToken != null) {
@@ -54,7 +54,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             response.setHeader("Access-Control-Allow-Methods", "*");
             response.setHeader("Access-Control-Max-Age", "3600");
             response.setHeader("Access-Control-Allow-Headers",
-                    "Origin, X-Requested-With, Content-Type, Accept, Authorization, refreshToken");
+                    "Origin, X-Requested-With, Content-Type, Accept, accessToken, refreshToken");
             if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
                 response.setStatus(HttpServletResponse.SC_OK);
             } else {
