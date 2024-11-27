@@ -44,4 +44,11 @@ public class Purchase extends BaseTimeEntity {
     public BigDecimal calculateTotalPrice() {
         return this.product.getPrice().multiply(BigDecimal.valueOf(this.quantity));
     }
+
+    public void setTransaction(Transaction transaction) {
+        this.transaction = transaction;
+        if (!transaction.getPurchases().contains(this)) {
+            transaction.getPurchases().add(this);
+        }
+    }
 }

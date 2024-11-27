@@ -1,6 +1,8 @@
 package com.nutech.backend.entity;
 
+import com.nutech.backend.constant.ErrorCode;
 import com.nutech.backend.entity.audit.BaseTimeEntity;
+import com.nutech.backend.exception.CustomException;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -42,5 +44,12 @@ public class Product extends BaseTimeEntity {
     @Builder(toBuilder = true)
     public static Product editProduct(Long id, String name, BigDecimal price, Long quantity) {
         return new Product(name, price, quantity);
+    }
+
+    public void setQuantity(Long newQuantity) {
+        if (newQuantity < 0) {
+            throw new CustomException(ErrorCode.INVALID_PRODUCT_QUANTITY);
+        }
+        this.quantity = newQuantity;
     }
 }

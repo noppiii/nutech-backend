@@ -31,6 +31,8 @@ public class MyWalletResponse {
         User user = wallet.getUser();
 
         List<TransactionResponse> transactionResponses = transactions.stream()
+                .sorted((t1, t2) -> t2.getCreatedAt().compareTo(t1.getCreatedAt()))
+                .limit(5)
                 .map(TransactionResponse::fromTransaction)
                 .collect(Collectors.toList());
 

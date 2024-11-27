@@ -37,7 +37,7 @@ public class WalletController {
         return ResponseEntity.ok(response);
     }
 
-    @Operation(summary = "My Wallet", description = "Lihat informasi dompet saya.",
+    @Operation(summary = "My Wallet", description = "Lihat informasi dompet saya (Lihat saldo dan transaksi terbaru).",
             parameters = {
                     @Parameter(
                             name = "accessToken",
