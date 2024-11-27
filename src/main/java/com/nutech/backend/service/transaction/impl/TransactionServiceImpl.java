@@ -6,9 +6,7 @@ import com.nutech.backend.exception.CustomException;
 import com.nutech.backend.payload.request.transaction.PurchaseRequest;
 import com.nutech.backend.payload.request.transaction.TopUpRequest;
 import com.nutech.backend.payload.response.CustomSuccessResponse;
-import com.nutech.backend.payload.response.transaction.PurchaseResponse;
-import com.nutech.backend.payload.response.transaction.PurchasedItemResponse;
-import com.nutech.backend.payload.response.transaction.TopUpResponse;
+import com.nutech.backend.payload.response.transaction.*;
 import com.nutech.backend.repository.ProductRepository;
 import com.nutech.backend.repository.TransactionRepository;
 import com.nutech.backend.repository.UserRepository;
@@ -16,6 +14,8 @@ import com.nutech.backend.repository.WalletRepository;
 import com.nutech.backend.service.transaction.TransactionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -127,4 +127,14 @@ public class TransactionServiceImpl implements TransactionService {
 
         return new CustomSuccessResponse<>("200", "Pembelian berhasil dilakukan", purchaseResponse);
     }
+
+    @Override
+    public CustomSuccessResponse<HistoryTransactionResponse> history(Pageable pageable, String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new CustomException(ErrorCode.UNAUTHENTICATED));
+        Page<Transaction> transactions = transactionRepository.findByUserOrderByCreatedAtDesc(user, pageable);
+        HistoryTransactionResponse historyResponse = HistoryTransactionResponse.of(transactions);
+        return new CustomSuccessResponse<>("200", "Berhasil mendapatkan riwayat transaksi", historyResponse);
+    }
+
 }
