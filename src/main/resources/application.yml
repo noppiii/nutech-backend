@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/nutech-backend
+    url: jdbc:postgresql://autorack.proxy.rlwy.net:24773/railway
     username: postgres
-    password: NOVIANTO
+    password: vBMNEwOjYJqagvcKvVctkTaqHUdrCkGe
 
   data:
     web:
