@@ -5,47 +5,21 @@ import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.domain.Page;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Builder
 @Getter
 public class HistoryTransactionResponse {
 
-    private List<TransactionDto> transactions;
+    private List<TransactionResponse> transactions;
     private Pagination pagination;
 
     public static HistoryTransactionResponse of(Page<Transaction> transactionPage) {
-        Page<TransactionDto> transactionDtoPage = transactionPage.map(TransactionDto::of);
+        Page<TransactionResponse> transactionResponsePage = transactionPage.map(TransactionResponse::fromTransaction);  // Updated to map to TransactionResponse
         return builder()
-                .transactions(transactionDtoPage.getContent())
-                .pagination(Pagination.of(transactionDtoPage))
+                .transactions(transactionResponsePage.getContent())
+                .pagination(Pagination.of(transactionResponsePage))
                 .build();
-    }
-
-    @Getter
-    @Builder
-    private static class TransactionDto {
-        private Long id;
-        private String name;
-        private String description;
-        private BigDecimal amount;
-        private String paymentMethod;
-        private String transactionType;
-        private LocalDateTime createdAt;
-
-        private static TransactionDto of(Transaction transaction) {
-            return TransactionDto.builder()
-                    .id(transaction.getId())
-                    .name(transaction.getName())
-                    .description(transaction.getDescription())
-                    .amount(transaction.getAmount())
-                    .paymentMethod(transaction.getPaymentMethod().toString())
-                    .transactionType(transaction.getType().toString())
-                    .createdAt(transaction.getCreatedAt())
-                    .build();
-        }
     }
 
     @Getter
@@ -59,17 +33,16 @@ public class HistoryTransactionResponse {
         private int requestSize;
         private int transactionSize;
 
-        private static Pagination of(Page<TransactionDto> transactionDtoPage) {
+        private static Pagination of(Page<TransactionResponse> transactionResponsePage) {
             return builder()
-                    .totalPages(transactionDtoPage.getTotalPages())
-                    .totalElements(transactionDtoPage.getTotalElements())
-                    .page(transactionDtoPage.getNumber() + 1)
-                    .hasNext(transactionDtoPage.hasNext())
-                    .hasPrevious(transactionDtoPage.hasPrevious())
-                    .requestSize(transactionDtoPage.getSize())
-                    .transactionSize(transactionDtoPage.getNumberOfElements())
+                    .totalPages(transactionResponsePage.getTotalPages())
+                    .totalElements(transactionResponsePage.getTotalElements())
+                    .page(transactionResponsePage.getNumber() + 1)
+                    .hasNext(transactionResponsePage.hasNext())
+                    .hasPrevious(transactionResponsePage.hasPrevious())
+                    .requestSize(transactionResponsePage.getSize())
+                    .transactionSize(transactionResponsePage.getNumberOfElements())
                     .build();
         }
     }
 }
-

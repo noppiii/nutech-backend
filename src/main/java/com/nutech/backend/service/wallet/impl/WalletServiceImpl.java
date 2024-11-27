@@ -36,7 +36,7 @@ public class WalletServiceImpl implements WalletService {
     public CustomSuccessResponse<WalletResponse> createWallet(CreateWalletRequest request, String email) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new CustomException(ErrorCode.UNAUTHENTICATED));
-        if (walletRepository.existsByUser(user)) {
+        if (walletRepository.existsByUser(user.getId())) {
             throw new CustomException(ErrorCode.WALLET_ALREADY_EXISTS);
         }
 
@@ -55,9 +55,9 @@ public class WalletServiceImpl implements WalletService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new CustomException(ErrorCode.UNAUTHENTICATED));
 
-        Wallet wallet = walletRepository.findByUser(user)
+        Wallet wallet = walletRepository.findByUser(user.getId())
                 .orElseThrow(() -> new CustomException(ErrorCode.WALLET_NOT_FOUND));
-        List<Transaction> transactions = transactionRepository.findByUser(user);
+        List<Transaction> transactions = transactionRepository.findByUser(user.getId());
         List<TransactionResponse> transactionResponses = transactions.stream()
                 .map(TransactionResponse::fromTransaction)
                 .collect(Collectors.toList());

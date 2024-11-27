@@ -1,8 +1,8 @@
 package com.nutech.backend.payload.response.transaction;
 
 import com.nutech.backend.entity.Transaction;
-import com.nutech.backend.entity.PaymentMethod;
-import com.nutech.backend.entity.TransactionType;
+import com.nutech.backend.entity.enumType.PaymentMethod;
+import com.nutech.backend.entity.enumType.TransactionType;
 import lombok.Getter;
 
 import java.math.BigDecimal;
@@ -18,9 +18,11 @@ public class TransactionResponse {
     private TransactionType type;
     private PaymentMethod paymentMethod;
     private LocalDateTime transactionDate;
+    private String invoiceNumber;
 
-    public TransactionResponse(Long transactionId, String name, String description, BigDecimal amount, TransactionType type, PaymentMethod paymentMethod, LocalDateTime transactionDate) {
+    public TransactionResponse(Long transactionId, String invoiceNumber, String name, String description, BigDecimal amount, TransactionType type, PaymentMethod paymentMethod, LocalDateTime transactionDate) {
         this.transactionId = transactionId;
+        this.invoiceNumber = invoiceNumber;
         this.name = name;
         this.description = description;
         this.amount = amount;
@@ -32,6 +34,7 @@ public class TransactionResponse {
     public static TransactionResponse fromTransaction(Transaction transaction) {
         return new TransactionResponse(
                 transaction.getId(),
+                transaction.getInvoiceNumber(),
                 transaction.getName(),
                 transaction.getDescription(),
                 transaction.getAmount(),
@@ -41,4 +44,3 @@ public class TransactionResponse {
         );
     }
 }
-

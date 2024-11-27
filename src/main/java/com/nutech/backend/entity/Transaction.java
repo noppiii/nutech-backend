@@ -1,6 +1,8 @@
 package com.nutech.backend.entity;
 
 import com.nutech.backend.entity.audit.BaseTimeEntity;
+import com.nutech.backend.entity.enumType.PaymentMethod;
+import com.nutech.backend.entity.enumType.TransactionType;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -30,6 +32,9 @@ public class Transaction extends BaseTimeEntity {
     private User user;
 
     @Column(nullable = false)
+    private String invoiceNumber;
+
+    @Column(nullable = false)
     private String name;
 
     private String description;
@@ -49,13 +54,18 @@ public class Transaction extends BaseTimeEntity {
     private List<Purchase> purchases = new ArrayList<>();
 
     @Builder
-    public Transaction(User user, String name, String description, BigDecimal amount, TransactionType type, PaymentMethod paymentMethod) {
+    public Transaction(User user, String name, String description, BigDecimal amount, TransactionType type, PaymentMethod paymentMethod, String invoiceNumber) {
         this.user = user;
         this.name = name;
         this.description = description;
         this.amount = amount;
         this.type = type;
         this.paymentMethod = paymentMethod;
+        this.invoiceNumber = invoiceNumber;
+    }
+
+    public void setInvoiceNumber(String invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
     }
 }
 

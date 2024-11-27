@@ -1,4 +1,4 @@
-package com.nutech.backend.entity;
+package com.nutech.backend.entity.enumType;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

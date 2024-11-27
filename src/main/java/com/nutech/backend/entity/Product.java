@@ -41,9 +41,10 @@ public class Product extends BaseTimeEntity {
         this.quantity = quantity;
     }
 
-    @Builder(toBuilder = true)
-    public static Product editProduct(Long id, String name, BigDecimal price, Long quantity) {
-        return new Product(name, price, quantity);
+    public void editProduct(String name, BigDecimal price, Long quantity) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
     }
 
     public void setQuantity(Long newQuantity) {

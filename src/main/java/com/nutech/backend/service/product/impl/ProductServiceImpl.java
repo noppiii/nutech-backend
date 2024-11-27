@@ -54,16 +54,11 @@ public class ProductServiceImpl implements ProductService {
     public CustomSuccessResponse<ProductResponse> editProduct(Long id, ProductRequest request, String email) {
         userRepository.findByEmail(email)
                 .orElseThrow(() -> new CustomException(ErrorCode.UNAUTHENTICATED));
+
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new CustomException(ErrorCode.PRODUCT_NOT_FOUND));
 
-        Product updatedProduct = product.toBuilder()
-                .name(request.getName())
-                .price(request.getPrice())
-                .quantity(request.getQuantity())
-                .build();
-
-        productRepository.save(updatedProduct);
+        product.editProduct(request.getName(), request.getPrice(), request.getQuantity());
 
         ProductResponse response = ProductResponse.builder()
                 .id(product.getId())

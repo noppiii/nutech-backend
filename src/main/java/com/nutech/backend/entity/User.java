@@ -1,6 +1,8 @@
 package com.nutech.backend.entity;
 
 import com.nutech.backend.entity.audit.BaseTimeEntity;
+import com.nutech.backend.entity.enumType.SocialCode;
+import com.nutech.backend.entity.enumType.UserRole;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;

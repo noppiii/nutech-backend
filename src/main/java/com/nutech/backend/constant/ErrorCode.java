@@ -25,7 +25,7 @@ public enum ErrorCode {
     WALLET_NOT_FOUND("Wallet tidak ditemukan untuk user ini. Pastikan wallet telah dibuat terlebih dahulu.", HttpStatus.NOT_FOUND),
     INVALID_PAYMENT_METHOD("Payment method harus salah satu dari DANA, SHOPEEPAY, BNI, BRI, MANDIRI, E_WALLET, BANK_TRANSFER, CREDIT_CARD", HttpStatus.CONFLICT),
     PRODUCT_NOT_FOUND("Data product tidak ditemukan", HttpStatus.NOT_FOUND),
-    INSUFFICIENT_PRODUCT_QUANTITY("Product yang anda beli stocknya habis", HttpStatus.CONFLICT),
+    INSUFFICIENT_PRODUCT_QUANTITY("Product yang anda beli stocknya habis atau melebihi stock yang ada", HttpStatus.CONFLICT),
     INSUFFICIENT_WALLET_BALANCE("Saldo tidak mencukupi untuk pembelian", HttpStatus.CONFLICT),
     INVALID_PRODUCT_QUANTITY("Stock product tidak sesuai format", HttpStatus.CONFLICT);
 
